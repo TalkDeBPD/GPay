@@ -1,0 +1,23 @@
+pay_wx:
+  #appid
+  appid: "wx5exxxxxxxxx"
+  #商户号
+  mchid: "12453452"
+  #商户密匙
+  mchKey: ""
+  #开发密匙
+  appSecret: ""
+  #回调url
+  notifyUrl: ""
+  #证书路径
+  keyPath: ""
+pay_ali:
+  appid: ""
+  #商户私有key
+  privateKey:
+    - ""
+    - ""
+  #支付宝共有key
+  aliPayPublicKey:
+    - ""
+    - ""
