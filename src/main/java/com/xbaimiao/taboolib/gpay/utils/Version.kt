@@ -1,4 +1,4 @@
-package com.xbaimiao.ks2Pay.deposit
+package com.xbaimiao.taboolib.gpay.utils
 
 import org.bukkit.Bukkit
 

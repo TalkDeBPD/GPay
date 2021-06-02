@@ -1,10 +1,7 @@
-package com.xbaimiao.taboolib.gpay
+package com.xbaimiao.taboolib.gpay.utils
 
+import com.xbaimiao.taboolib.gpay.Main
 import org.bukkit.Bukkit
-import java.io.*
-import java.net.HttpURLConnection
-import java.net.URL
-import java.net.URLConnection
 
 fun Runnable.async() {
     Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, this)

@@ -6,7 +6,7 @@ import com.lly835.bestpay.service.impl.BestPayServiceImpl
 import io.izzel.taboolib.module.config.TConfig
 import java.io.File
 
-object Pay {
+object Service {
 
     private val tConfig = TConfig.create(File("src\\main\\resources\\key.yml"))
 

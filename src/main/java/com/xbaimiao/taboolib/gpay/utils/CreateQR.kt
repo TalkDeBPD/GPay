@@ -1,8 +1,9 @@
-package com.xbaimiao.ks2Pay.deposit
+package com.xbaimiao.taboolib.gpay.utils
 
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
+import com.xbaimiao.taboolib.gpay.deposit.DepositType
 import com.xbaimiao.taboolib.gpay.Main
 import io.izzel.taboolib.TabooLibAPI
 import io.izzel.taboolib.internal.xseries.XMaterial

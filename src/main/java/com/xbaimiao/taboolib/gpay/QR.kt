@@ -1,6 +1,5 @@
-package com.xbaimiao.ks2Pay.listeners
+package com.xbaimiao.taboolib.gpay
 
-import com.xbaimiao.taboolib.gpay.Main
 import io.izzel.taboolib.module.inject.TListener
 import org.bukkit.Material
 import org.bukkit.entity.Player

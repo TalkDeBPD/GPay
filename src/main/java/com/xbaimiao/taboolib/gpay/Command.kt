@@ -1,9 +1,10 @@
 package com.xbaimiao.ks2Pay
 
-import com.xbaimiao.ks2Pay.callback.WXPay
-import com.xbaimiao.ks2Pay.deposit.Deposit
-import com.xbaimiao.ks2Pay.deposit.DepositType
-import com.xbaimiao.ks2Pay.listeners.QR
+import com.xbaimiao.taboolib.gpay.callback.WXPay
+import com.xbaimiao.taboolib.gpay.deposit.Deposit
+import com.xbaimiao.taboolib.gpay.deposit.DepositType
+import com.xbaimiao.taboolib.gpay.QR
+import com.xbaimiao.taboolib.gpay.Main
 import io.izzel.taboolib.TabooLibAPI
 import io.izzel.taboolib.module.command.base.*
 import org.bukkit.command.Command

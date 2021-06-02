@@ -1,11 +1,11 @@
-package com.xbaimiao.ks2Pay.callback
+package com.xbaimiao.taboolib.gpay.callback
 
-import com.xbaimiao.ks2Pay.Main
-import com.xbaimiao.ks2Pay.deposit.Callback
-import com.xbaimiao.ks2Pay.deposit.Deposit
-import com.xbaimiao.ks2Pay.deposit.DepositType
-import com.xbaimiao.ks2Pay.listeners.QR
-import com.xbaimiao.ks2Pay.sync
+import com.xbaimiao.taboolib.gpay.Main
+import com.xbaimiao.taboolib.gpay.deposit.Callback
+import com.xbaimiao.taboolib.gpay.deposit.Deposit
+import com.xbaimiao.taboolib.gpay.deposit.DepositType
+import com.xbaimiao.taboolib.gpay.QR
+import com.xbaimiao.taboolib.gpay.utils.sync
 import io.izzel.taboolib.TabooLibAPI
 import org.bukkit.Bukkit
 import org.bukkit.Material

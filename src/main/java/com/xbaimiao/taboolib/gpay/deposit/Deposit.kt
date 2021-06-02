@@ -1,8 +1,8 @@
-package com.xbaimiao.ks2Pay.deposit
+package com.xbaimiao.taboolib.gpay.deposit
 
 import com.google.gson.Gson
 import com.xbaimiao.ks2Pay.Https
-import com.xbaimiao.ks2Pay.Main
+import com.xbaimiao.taboolib.gpay.Main
 import com.xbaimiao.ks2Pay.async
 import com.xbaimiao.ks2Pay.back.Order
 import com.xbaimiao.ks2Pay.back.Query
@@ -11,6 +11,7 @@ import com.xbaimiao.ks2Pay.back.alipay.AliPayQuery
 import com.xbaimiao.ks2Pay.back.qq.QQOrder
 import com.xbaimiao.ks2Pay.back.wxpay.WXPayOrder
 import com.xbaimiao.ks2Pay.back.wxpay.WXPayQuery
+import com.xbaimiao.taboolib.gpay.utils.CreateQR
 import io.izzel.taboolib.TabooLibAPI
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable

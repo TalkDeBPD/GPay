@@ -1,8 +1,8 @@
-package com.xbaimiao.ks2Pay.callback
+package com.xbaimiao.taboolib.gpay.callback
 
-import com.xbaimiao.ks2Pay.deposit.Callback
-import com.xbaimiao.ks2Pay.deposit.Deposit
-import com.xbaimiao.ks2Pay.deposit.DepositType
+import com.xbaimiao.taboolib.gpay.deposit.Callback
+import com.xbaimiao.taboolib.gpay.deposit.Deposit
+import com.xbaimiao.taboolib.gpay.deposit.DepositType
 import org.bukkit.entity.Player
 
 object AliPay : Callback {

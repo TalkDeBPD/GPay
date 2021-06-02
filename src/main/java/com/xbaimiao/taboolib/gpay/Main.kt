@@ -1,6 +1,5 @@
-package com.xbaimiao.ks2Pay
+package com.xbaimiao.taboolib.gpay
 
-import com.xbaimiao.ks2Pay.listeners.QR
 import io.izzel.taboolib.Version
 import io.izzel.taboolib.loader.Plugin
 import io.izzel.taboolib.module.config.TConfig
@@ -8,21 +7,18 @@ import io.izzel.taboolib.module.inject.TInject
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
-import java.net.URL
 
 object Main : Plugin() {
-
-    lateinit var main: Main
 
     @TInject(value = ["config.yml"])
     lateinit var config: TConfig
         private set
-    lateinit var prefix: String
-    lateinit var id: String
-    lateinit var key: String
-    private val titleUrl = "https://qr.ks2.xyz/gg.html"
 
-    private val version = Https.sendGet(URL("https://qr.ks2.xyz/version.txt"))
+    @TInject(value = ["key.yml"])
+    lateinit var key: TConfig
+        private set
+
+    val prefix get() = config.getStringColored("message.prefix")
 
     override fun onEnable() {
         if (Version.isBefore(Version.v1_12)) {
@@ -30,24 +26,6 @@ object Main : Plugin() {
             onDisable()
             return
         }
-        main = this
-        startTitle()
-        prefix = config.getStringColored("message.prefix")
-        id = config.getString("id")!!
-        key = config.getString("key")!!
-    }
-
-    private fun startTitle() {
-        Runnable {
-            val data = Https.sendGet(URL(titleUrl))
-            if (data == "") {
-                return@Runnable
-            }
-            val list = data.replace("&", "§").split("\\n").toList()
-            list.forEach {
-                plugin.logger.info(it)
-            }
-        }.async()
     }
 
     override fun onDisable() {
@@ -60,4 +38,5 @@ object Main : Plugin() {
             }
         }
     }
+
 }
