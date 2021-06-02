@@ -45,8 +45,14 @@ object Listeners : Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     fun drop(event: PlayerDropItemEvent) {
         val item = event.itemDrop.itemStack
-        if (event.player.inventory.itemInMainHand.type != Material.AIR || item.itemMeta?.displayName == "§c扫码支付") {
-
+        if (event.player in payList) {
+            val player = event.player
+            payList.remove(player)
+            if (item.itemMeta?.displayName == "§c扫码支付") {
+                event.itemDrop.remove()
+                return
+            }
+            event.isCancelled = true
         }
     }
 
