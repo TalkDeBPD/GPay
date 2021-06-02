@@ -36,7 +36,13 @@ class Command : BaseMainCommand() {
                 )
                 return
             }
-            val money = args[0].toDouble()
+            val money: Double
+            try {
+                money = args[0].toDouble()
+            } catch (e: NumberFormatException) {
+                player.sendMessage("Main.prefix + 金额输入有误")
+                return
+            }
             if (money > 1000.0) {
                 player.sendMessage(Main.prefix + "§c单笔充值最高1000元")
                 return
@@ -83,7 +89,13 @@ class Command : BaseMainCommand() {
                 )
                 return
             }
-            val money = args[0].toDouble()
+            val money: Double
+            try {
+                money = args[0].toDouble()
+            } catch (e: NumberFormatException) {
+                player.sendMessage("Main.prefix + 金额输入有误")
+                return
+            }
             if (money > 1000.0) {
                 player.sendMessage(Main.prefix + "§c单笔充值最高1000元")
                 return
