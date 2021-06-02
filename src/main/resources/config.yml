@@ -4,14 +4,14 @@ setting:
   #充值完成后执行的命令
   commands:
     #假如玩家充值了一元， 那么就会通过Points命令给玩家 1 * 游戏币倍率数量的点券
-    - "points give %player_name% %ks2pay_money%"
-    - "tell %player_name% 你的点券已到账%ks2pay_money% "
+    - "points give %player_name% {0}"
+    - "tell %player_name% 你的点券已到账 {0} "
 
 #消息自定义
 message:
-  prefix: "§c§lKs2Pay §7"
+  prefix: "§c§l[GPAY] §7"
   fail: "订单创建失败,请重试..."
   noInt: "请输入整数..."
-  create: "正在创建%ks2pay_type%支付二维码,请稍等..."
-  payFinish: "你通过%ks2pay_type%充值了 &e%price% &7金额"
+  create: "正在创建 {0} 支付二维码,请稍等..."
+  payFinish: "你通过 {0} 充值了 &e{1} &7金额"
   createFinish: "创建完成,请在 §e15分钟内 §7完成支付"

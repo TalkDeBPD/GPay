@@ -3,8 +3,8 @@ package com.xbaimiao.taboolib.gpay.utils
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
-import com.xbaimiao.taboolib.gpay.deposit.DepositType
 import com.xbaimiao.taboolib.gpay.Main
+import com.xbaimiao.taboolib.gpay.deposit.DepositType
 import io.izzel.taboolib.TabooLibAPI
 import io.izzel.taboolib.internal.xseries.XMaterial
 import io.izzel.taboolib.util.item.ItemBuilder
@@ -21,49 +21,9 @@ import java.awt.image.BufferedImage
 
 class CreateQR(string: String, private val type: DepositType) {
 
-    val PAPI = TabooLibAPI.getPluginBridge()
-
     private val qrCodeWriter1 = QRCodeWriter()
-
     private val bitMatrix1: BitMatrix = qrCodeWriter1.encode(string, BarcodeFormat.QR_CODE, 128, 128)
-
-    private fun toBufferedImage(bitMatrix: BitMatrix): BufferedImage {
-        val width = bitMatrix.width
-        val height = bitMatrix.height
-        val image = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
-        for (i in 0 until width) {
-            for (j in 0 until height) {
-                image.setRGB(i, j, if (bitMatrix[i, j]) -0x1000000 else 0XFFFFFF)
-            }
-        }
-        return image
-    }
-
-    companion object {
-        private val packetPlayOutMapClass = Version.getNmsClass("PacketPlayOutMap")
-        private val packetPlayOutSetSlotClass = Version.getNmsClass("PacketPlayOutSetSlot")
-        private val itemStackClass = Version.getNmsClass("ItemStack")
-        private val craftPlayerClass = Version.getObcClass("entity.CraftPlayer")
-        private val craftItemStackClass = Version.getObcClass("inventory.CraftItemStack")
-        private val craftMapViewClass = Version.getObcClass("map.CraftMapView")
-        private val entityHumanClass = Version.getNmsClass("EntityHuman")
-        private val containerClass = Version.getNmsClass("Container")
-        private val entityPlayerClass = Version.getNmsClass("EntityPlayer")
-        private val playerConnectionClass = Version.getNmsClass("PlayerConnection")
-        private val packetClass = Version.getNmsClass("Packet")
-        private val renderDataClass = Version.getObcClass("map.RenderData")
-        private val mapViewClass = Class.forName("org.bukkit.map.MapView")
-
-        val judgeItem by lazy {
-            val paper = ItemBuilder(Material.PAPER)
-                .name("§c扫码支付")
-                .build()
-            paper
-        }
-    }
-
     private val image: BufferedImage = toBufferedImage(bitMatrix1)
-
     private val renderer = object : MapRenderer() {
         var rendered = false
         override fun render(mapView: MapView, mapCanvas: MapCanvas, player: Player) {
@@ -73,20 +33,12 @@ class CreateQR(string: String, private val type: DepositType) {
             rendered = true
         }
     }
-
-    private fun v1122MapId(): Short {
-        val id = mapViewClass.getDeclaredMethod("getId").invoke(mapView)
-        return (id as Number).toShort()
-    }
-
     private lateinit var mapMeta: MapMeta
-
     private val mapView: MapView by lazy {
         val mapView = Bukkit.createMap(Bukkit.getWorlds()[0])
         mapView.addRenderer(renderer)
         mapView
     }
-
     private val mapItem by lazy {
         val mapName = if (Version.isAfter(Version.v1_13)) "FILLED_MAP" else "MAP"
         val map = if (Version.isAfter(Version.v1_13)) {
@@ -113,6 +65,23 @@ class CreateQR(string: String, private val type: DepositType) {
         }
         map.itemMeta = mapMeta
         map
+    }
+
+    private fun toBufferedImage(bitMatrix: BitMatrix): BufferedImage {
+        val width = bitMatrix.width
+        val height = bitMatrix.height
+        val image = BufferedImage(width, height, BufferedImage.TYPE_INT_RGB)
+        for (i in 0 until width) {
+            for (j in 0 until height) {
+                image.setRGB(i, j, if (bitMatrix[i, j]) -0x1000000 else 0XFFFFFF)
+            }
+        }
+        return image
+    }
+
+    private fun v1122MapId(): Short {
+        val id = mapViewClass.getDeclaredMethod("getId").invoke(mapView)
+        return (id as Number).toShort()
     }
 
     private fun sendPacket(player: Player, packet: Any) {
@@ -204,6 +173,29 @@ class CreateQR(string: String, private val type: DepositType) {
 
     private fun getMainHandSlot(player: Player): Int {
         return player.inventory.heldItemSlot + 36
+    }
+
+    companion object {
+        private val packetPlayOutMapClass = Version.getNmsClass("PacketPlayOutMap")
+        private val packetPlayOutSetSlotClass = Version.getNmsClass("PacketPlayOutSetSlot")
+        private val itemStackClass = Version.getNmsClass("ItemStack")
+        private val craftPlayerClass = Version.getObcClass("entity.CraftPlayer")
+        private val craftItemStackClass = Version.getObcClass("inventory.CraftItemStack")
+        private val craftMapViewClass = Version.getObcClass("map.CraftMapView")
+        private val entityHumanClass = Version.getNmsClass("EntityHuman")
+        private val containerClass = Version.getNmsClass("Container")
+        private val entityPlayerClass = Version.getNmsClass("EntityPlayer")
+        private val playerConnectionClass = Version.getNmsClass("PlayerConnection")
+        private val packetClass = Version.getNmsClass("Packet")
+        private val renderDataClass = Version.getObcClass("map.RenderData")
+        private val mapViewClass = Class.forName("org.bukkit.map.MapView")
+
+        val judgeItem by lazy {
+            val paper = ItemBuilder(Material.PAPER)
+                .name("§c扫码支付")
+                .build()
+            paper
+        }
     }
 
 }

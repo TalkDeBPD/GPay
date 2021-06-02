@@ -11,12 +11,6 @@ import java.util.Calendar.*
 object Trade {
 
     @JvmStatic
-    val storeId = "001"
-
-    @JvmStatic
-    val operatorId = "xbaimiao"
-
-    @JvmStatic
     fun createOutTradeNo(): String {
         val calendar = getInstance()
         return "${calendar.get(YEAR)}${calendar.get(MONTH) + 1}${calendar.get(DATE)}" + (System.currentTimeMillis() + (Math.random() * 10000000L).toLong()).toString()
@@ -56,12 +50,25 @@ object Trade {
         return response
     }
 
+    /**
+     * 查询支付宝订单
+     */
     fun aliQuery(orderId: String): Boolean {
         val request = OrderQueryRequest()
         request.platformEnum = BestPayPlatformEnum.ALIPAY
-        request.outOrderId = orderId
         request.orderId = orderId
-        val response = Service.bestPayService.query(request)
+        val response = Service.bestPayService.query(request) ?: return false
+        return response.orderStatusEnum == OrderStatusEnum.SUCCESS
+    }
+
+    /**
+     * 查询微信订单
+     */
+    fun wxQuery(orderId: String): Boolean {
+        val request = OrderQueryRequest()
+        request.platformEnum = BestPayPlatformEnum.WX
+        request.orderId = orderId
+        val response = Service.bestPayService.query(request) ?: return false
         return response.orderStatusEnum == OrderStatusEnum.SUCCESS
     }
 

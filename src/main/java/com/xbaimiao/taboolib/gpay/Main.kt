@@ -1,5 +1,6 @@
 package com.xbaimiao.taboolib.gpay
 
+import com.xbaimiao.taboolib.gpay.utils.Service
 import io.izzel.taboolib.Version
 import io.izzel.taboolib.loader.Plugin
 import io.izzel.taboolib.module.config.TConfig
@@ -26,15 +27,16 @@ object Main : Plugin() {
             onDisable()
             return
         }
+        println(Service.bestPayService)
     }
 
     override fun onDisable() {
         Bukkit.getOnlinePlayers().forEach { player ->
-            if (player in QR.payList) {
+            if (player in Listeners.payList) {
                 if (player.inventory.itemInMainHand.itemMeta?.displayName == "§c扫码支付") {
                     player.inventory.setItemInMainHand(ItemStack(Material.AIR))
                 }
-                QR.payList.remove(player)
+                Listeners.payList.remove(player)
             }
         }
     }
