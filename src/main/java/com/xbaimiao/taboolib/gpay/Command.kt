@@ -40,7 +40,7 @@ class Command : BaseMainCommand() {
             try {
                 money = args[0].toDouble()
             } catch (e: NumberFormatException) {
-                player.sendMessage("Main.prefix + §c金额输入有误")
+                player.sendMessage(Main.prefix + "§c金额输入有误")
                 return
             }
             if (money > 1000.0) {
@@ -93,7 +93,7 @@ class Command : BaseMainCommand() {
             try {
                 money = args[0].toDouble()
             } catch (e: NumberFormatException) {
-                player.sendMessage("Main.prefix + §c金额输入有误")
+                player.sendMessage(Main.prefix + "§c金额输入有误")
                 return
             }
             if (money > 1000.0) {
