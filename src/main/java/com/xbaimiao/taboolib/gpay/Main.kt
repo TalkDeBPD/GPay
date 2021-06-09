@@ -19,6 +19,10 @@ object Main : Plugin() {
     lateinit var key: TConfig
         private set
 
+    @TInject(value = ["transaction.yml"])
+    lateinit var transaction: TConfig
+        private set
+
     val prefix get() = config.getStringColored("message.prefix")
 
     override fun onEnable() {
@@ -28,9 +32,12 @@ object Main : Plugin() {
             return
         }
         println(Service.bestPayService)
+        Bukkit.getScheduler()
+            .runTaskTimerAsynchronously(this.plugin, Runnable { transaction.saveToFile() }, 20 * 30, 20 * 30)
     }
 
     override fun onDisable() {
+        transaction.saveToFile()
         Bukkit.getOnlinePlayers().forEach { player ->
             if (player in Listeners.payList) {
                 if (player.inventory.itemInMainHand.itemMeta?.displayName == "§c扫码支付") {

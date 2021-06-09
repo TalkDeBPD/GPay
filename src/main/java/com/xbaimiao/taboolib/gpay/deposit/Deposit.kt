@@ -2,6 +2,7 @@ package com.xbaimiao.taboolib.gpay.deposit
 
 import com.lly835.bestpay.model.PayResponse
 import com.xbaimiao.taboolib.gpay.Main
+import com.xbaimiao.taboolib.gpay.callback.WXPay
 import com.xbaimiao.taboolib.gpay.utils.CreateQR
 import com.xbaimiao.taboolib.gpay.utils.Trade
 import com.xbaimiao.taboolib.gpay.utils.async
@@ -20,7 +21,7 @@ class Deposit(
     private val bridge = TabooLibAPI.getPluginBridge()
     private val maxTime = 15 * 60
     private lateinit var queryTask: BukkitRunnable
-    private lateinit var orderId: String
+    lateinit var orderId: String
     lateinit var qr: CreateQR
     private var loadSuccess = false
     lateinit var response: PayResponse
@@ -51,6 +52,7 @@ class Deposit(
 
                 override fun run() {
                     if (timer++ > maxTime) {
+                        WXPay.addLogs("点券充值", player.name, price, "支付超时", this@Deposit, type.typeName)
                         cancel()
                     }
                     if (query() && !paySuccess) {

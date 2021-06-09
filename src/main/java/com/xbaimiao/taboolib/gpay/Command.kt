@@ -36,6 +36,10 @@ class Command : BaseMainCommand() {
                 )
                 return
             }
+            if (!args[0].matches(Regex("[0-9]+"))){
+                player.sendMessage(Main.prefix + "§c请输入正确的数字")
+                return
+            }
             val money = args[0].toDouble()
             if (money > 1000.0) {
                 player.sendMessage(Main.prefix + "§c单笔充值最高1000元")
@@ -83,6 +87,10 @@ class Command : BaseMainCommand() {
                 )
                 return
             }
+            if (!args[0].matches(Regex("[0-9]+"))){
+                player.sendMessage(Main.prefix + "§c请输入正确的数字")
+                return
+            }
             val money = args[0].toDouble()
             if (money > 1000.0) {
                 player.sendMessage(Main.prefix + "§c单笔充值最高1000元")
@@ -107,6 +115,13 @@ class Command : BaseMainCommand() {
 
         }
 
+    }
+
+    override fun onTabComplete(sender: CommandSender, command: String, argument: String): MutableList<String>? {
+        if (argument == "金额"){
+            return arrayListOf("1","6","12","30","64","128","200","328","648")
+        }
+        return null
     }
 
 }

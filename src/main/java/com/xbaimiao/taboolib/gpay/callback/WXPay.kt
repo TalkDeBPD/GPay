@@ -11,12 +11,17 @@ import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 object WXPay : Callback {
 
     private val PAPI = TabooLibAPI.getPluginBridge()
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd,hh:mm:ss")
 
     override fun run(type: DepositType, price: Double, player: Player, deposit: Deposit) {
+        addLogs("点券充值", player.name, price, "支付完成", deposit, type.typeName)
         player.sendMessage(
             Main.prefix + PAPI.setPlaceholders(player, Main.config.getString("message.payFinish")!!)
                 .replace("{1}", "$price").replace("{0}", type.typeName)
@@ -42,6 +47,17 @@ object WXPay : Callback {
             }
         }
         player.updateInventory()
+    }
+
+    fun addLogs(name: String, player: String, price: Double, type: String, deposit: Deposit, f: String) {
+        val date = Date()
+        val time = dateFormat.format(date)
+        Main.transaction.set("$time.订单号", deposit.orderId)
+        Main.transaction.set("$time.玩家ID", player)
+        Main.transaction.set("$time.金额", price)
+        Main.transaction.set("$time.商品名", name)
+        Main.transaction.set("$time.状态", type)
+        Main.transaction.set("$time.支付方式", f)
     }
 
 }
